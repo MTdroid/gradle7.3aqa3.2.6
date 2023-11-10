@@ -1,0 +1,39 @@
+import javax.sound.sampled.Line
+
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'academy.kata'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // После запуска тестов генерировуется отчёт о покрытии
+
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                minimum = 1.0
+
+            }
+        }
+    }
+}
